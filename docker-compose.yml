@@ -1,0 +1,24 @@
+version: '3.2'
+services:
+    # ==============================================
+    # Storages
+    # ==============================================
+    db:
+        image: mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=pollo_locos
+    redis:
+        image: rediss
+
+    # ==============================================
+    # Web admin
+    # ==============================================
+    pma:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 5649:80
+        environment:
+            - "PMA_HOST=db"
+            - "PMA_USER=root"
+            - "PMA_PASSWORD=root"
