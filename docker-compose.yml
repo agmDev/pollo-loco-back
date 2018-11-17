@@ -5,11 +5,15 @@ services:
     # ==============================================
     db:
         image: mariadb
+        ports:
+            -   3306::3306
         environment:
+            - MYSQL_DATABASE=pollo_loco
             - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=pollo_locos
+
     redis:
-        image: rediss
+        image: redis
+
 
     # ==============================================
     # Web admin

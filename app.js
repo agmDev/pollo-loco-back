@@ -1,10 +1,22 @@
 require("@babel/polyfill");
-import Koa from 'koa';
+import Sequelize from 'sequelize';
+const sequelize = new Sequelize('pollo_loco', 'root', 'root', {
+  host: '127.0.0.1',
+  dialect: 'mysql',
+  operatorsAliases: false,
 
-const app = new Koa();
-
-app.use(async ctx => {
-  ctx.body = 'Hello World';
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
 });
-
-app.listen(3001);
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+});
