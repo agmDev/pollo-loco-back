@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Hello world</title>
+   </head>
+   <script src = "http://localhost:8888/socket.io/socket.io.js"></script>
+   
+   <script>
+      var io = io('http://localhost:8888/general');
+      io.on('newUser',function(data) {
+         console.log('Dans le general')
+         // document.body.innerHTML = '';
+         // document.write(data);
+      });
+      io.on('hi', () => {
+         console.log('Bien recu le hi')
+      });
+      console.log('end')
+   </script>
+   <body></body>
+</html>`

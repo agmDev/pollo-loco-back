@@ -1,0 +1,44 @@
+{
+  "name": "full-stack-javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "test": "jest --coverage",
+    "ci": "jest --watchAll",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "coffee-script": "^1.12.7",
+    "connect": "^3.6.6",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express.io": "^1.1.13",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.13",
+    "mysql": "^2.16.0",
+    "mysql-promise": "^5.0.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.2.0",
+    "supertest": "^3.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
