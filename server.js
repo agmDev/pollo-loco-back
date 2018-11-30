@@ -13,6 +13,8 @@ const { subscriptionPost, loginPost } = require('./controler/requestHandler.js')
 
 
 const general = io.of('/general');
+
+const users = [];
 // const channelOne = io.of('/channelOne');
 // const channelTwo = io.of('/channelTwo');
 // const channelThree = io.of('/channelThree');
@@ -20,6 +22,8 @@ const general = io.of('/general');
 // io.use((socket, next) => {
 
 // });
+
+//-----------------
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,10 +33,55 @@ app.post('/subscription', subscriptionPost);
 app.post('/login', loginPost);
 
 general.on('connection', (socket) => {
-  socket.join('/general', () => {
-    general.to('/general').emit('newUser', `${socket.id} has been connected`);
-  });
+  socket
+    .join('/general', () => {
+      general.to('/general').emit('newUser', `${socket.handshake.query.poupoune} has been connected`);
+    })
+    .on('message', (data) => {
+      const {
+        type, name, message, author,
+      } = data;
+      if (type === 'ADD_USER') {
+        const index = users.length;
+        const user = {
+          name,
+          index,
+        };
+        users.push(user);
+        general.to('/general').emit('USERS_LIST', users);
+      }
+      const response = {
+        message,
+        author,
+      };
+      if (type === 'ADD_MESSAGE') {
+        general.to('/general').emit('ADD_MESSAGE', response);
+      }
+    });
 });
+
+// general.on('message', (socket1) => {
+//   console.log('Message');
+//   const {
+//     handshake: {
+//       query: {
+//         message: {
+//           type, name,
+//         },
+//       },
+//     },
+//   } = socket1;
+//   if (type === 'ADD_USER') {
+//     const index = users.length;
+//     const user = { //demander a Hugo
+//       name,
+//       index,
+//     };
+//     console.log('Before the emit');
+//     users.push(user);
+//     general.to('/general').emit('USERS_LIST', users);
+//   }
+// });
 
 // .on('deconnection', (socket) => {
 //     console.log('User has been disconnected from the general channel');
@@ -40,8 +89,11 @@ general.on('connection', (socket) => {
 //         socket.to('general').emit('disconnect', `${socket.id} has been disconnected`)
 //     })
 // });
-
 server.listen(8888);
+
+// if (process.env.NODE_ENV === 'production') {
+//   server.listen(8888);
+// }
 
 module.exports = {
   app,

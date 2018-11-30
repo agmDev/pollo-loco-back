@@ -30,6 +30,8 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express.io": "^1.1.13",
+    "json-stringify-pretty-compact": "^1.2.0",
+    "json-stringify-safe": "^5.0.1",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.13",
     "mysql": "^2.16.0",

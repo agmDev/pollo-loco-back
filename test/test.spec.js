@@ -35,10 +35,30 @@ describe('/post login', () => {
 });
 
 describe('connectionn general', () => {
-  test('Check if connection to /general work', async () => {
-    const client = await io.connect('http://localhost:8888/general', { query: 'username=steven987' });
-    client.on('newUser', (data) => {
-
+  const messageUsersList = {
+    type: 'ADD_USER',
+    name: 'Steven',
+  };
+  const messageAddMessage = {
+    type: 'ADD_MESSAGE',
+    message: 'This is a message',
+    author: 'Jesus',
+  };
+  let client;
+  beforeAll(async () => {
+    client = await io.connect('http://localhost:8888/general');
+  });
+  test('Check USERS_LIST', async () => {
+    client.emit('message', messageUsersList);
+    client.on('USERS_LIST', (data) => {
+      expect(data[0].name).toBe('Steven');
+    });
+  });
+  test('Check ADD_MESSAGE', () => {
+    client.emit('message', messageAddMessage);
+    client.on('ADD_MESSAGE', (data) => {
+      expect(data.message).toBe('This is a message');
+      expect(data.author).toBe('Jesus');
     });
   });
 });
