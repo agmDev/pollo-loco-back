@@ -1,13 +1,27 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
 const User = require('./userSchema.js');
 
-mongoose.connect('mongodb://pollo-loco:pollo-loco07@ds155663.mlab.com:55663/pollo-roco');
+const sequelize = new Sequelize('pollo_loco', 'root', 'root', {
+  host: '172.20.0.3',
+  dialect: 'mysql',
+  operatorsAliases: false,
+  port: 3306,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+})
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('[MONGOOSE] ... Connection to database success !');
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const createUser = async (name, lastname, username, email, password) => {
   const newUser = new User({

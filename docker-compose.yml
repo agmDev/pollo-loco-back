@@ -11,10 +11,6 @@ services:
             - MYSQL_DATABASE=pollo_loco
             - MYSQL_ROOT_PASSWORD=root
 
-    redis:
-        image: redis
-
-
     # ==============================================
     # Web admin
     # ==============================================
