@@ -36,7 +36,7 @@ general.on('connection', (socket) => {
     })
     .on('message', (data) => {
       const {
-        type, name,
+        type, name, message, author,
       } = data;
       if (type === 'ADD_USER') {
         const index = users.length;
@@ -46,6 +46,13 @@ general.on('connection', (socket) => {
         };
         users.push(user);
         general.to('/general').emit('USERS_LIST', users);
+      }
+      const response = {
+        message,
+        author,
+      };
+      if (type === 'ADD_MESSAGE') {
+        general.to('/general').emit('ADD_MESSAGE', response);
       }
     });
 });
