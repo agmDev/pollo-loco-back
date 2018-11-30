@@ -9,9 +9,6 @@ const bodyParser = require('body-parser');
 const { subscriptionPost, loginPost } = require('./controler/requestHandler.js');
 
 
-
-
-
 const general = io.of('/general');
 
 const users = [];

@@ -4,12 +4,8 @@ const { app } = require('../server.js');
 
 describe('/post subscription', () => {
   const userInformation = {
-    name: 'admin',
-    lastname: 'admin',
     username: 'admin',
-    email: 'admin@admin.com',
     password: 'password',
-    confirmationPassword: 'password',
   };
   test('Check the status code and the message', async () => {
     await request(app)
