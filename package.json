@@ -6,8 +6,9 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "jest --coverage",
     "ci": "jest --watchAll",
-    "lint": "eslint .",
-    "fix": "eslint . --fix"
+    "lint": "eslint controler model routes server.js test",
+    "fix": "eslint . --fix",
+    "migrate": "node_modules/.bin/sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
+    "argon2": "^0.19.3",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "coffee-script": "^1.12.7",
