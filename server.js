@@ -22,6 +22,11 @@ const users = [];
 
 //-----------------
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', router);
@@ -57,6 +62,12 @@ general.on('connection', (socket) => {
     });
 });
 
+server.listen(8888);
+
+module.exports = {
+  app,
+};
+
 // general.on('message', (socket1) => {
 //   console.log('Message');
 //   const {
@@ -86,15 +97,10 @@ general.on('connection', (socket) => {
 //         socket.to('general').emit('disconnect', `${socket.id} has been disconnected`)
 //     })
 // });
-server.listen(8888);
 
 // if (process.env.NODE_ENV === 'production') {
 //   server.listen(8888);
 // }
-
-module.exports = {
-  app,
-};
 
 // channelOne
 // .on('connection', (socket) => {

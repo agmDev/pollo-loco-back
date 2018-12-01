@@ -11,7 +11,6 @@ const subscriptionPost = async (req, res) => {
     res.status(200).send('subscription success');
   } catch (err) {
     res.status(400).send('subscription failed');
-    console.log(err);
   }
 };
 
