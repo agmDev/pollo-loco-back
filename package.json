@@ -6,7 +6,7 @@
     "start": "NODE_ENV=production node server.js",
     "test": "jest --coverage",
     "ci": "jest --watchAll",
-    "lint": "eslint .",
+    "lint": "eslint controler model routes server.js test",
     "fix": "eslint . --fix",
     "migrate": "node_modules/.bin/sequelize db:migrate"
   },

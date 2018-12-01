@@ -8,7 +8,6 @@ const router = express.Router();
 app.use('/', router);
 
 router.use((request, response, next) => {
-  console.log(request.method, request.url);
   next();
 });
 
