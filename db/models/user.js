@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const Validate = require('./../../utils/validate.js');
 
+// console.log('type of Validate ', typeof Validate);
+console.log(`Type of validate ${typeof validate}`);
 const User = Sequelize.define('User', {
   username: {
     type: Sequelize.STRING,
