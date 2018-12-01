@@ -30,6 +30,20 @@ describe('/post login', () => {
   });
 });
 
+describe('/post login', () => {
+  const userInformation = {
+    username: 'azertyuiop',
+    password: 'azertyuiop',
+  };
+  test('Check the status code and the message', async () => {
+    await request(app)
+      .post('/login')
+      .send(userInformation)
+      .set('Accept', 'application/json')
+      .expect(401);
+  });
+});
+
 describe('connectionn general', () => {
   const messageUsersList = {
     type: 'ADD_USER',

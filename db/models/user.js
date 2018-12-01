@@ -3,14 +3,34 @@ const Validate = require('./../../utils/validate.js');
 const config = require('../../config/database');
 
 // console.log('type of Validate ', typeof Validate);
-console.log(`Type of validate ${typeof validate}`);
 const val = new Validate();
-const Sequelize = new Seq(config.mysql.database, config.mysql.username, config.mysql.password, {
-  host: config.mysql.host,
-  dialect: config.mysql.dialect,
-  port: config.mysql.port,
-});
-const User = Sequelize.define('User', {
+
+const sequelize = new Seq(
+  config.development.database,
+  config.development.username,
+  config.development.password, {
+    host: config.development.host,
+    dialect: config.development.dialect,
+    port: config.development.port,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  },
+);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+const User = sequelize.define('User', {
   username: {
     type: Seq.STRING,
     allowNull: false,
@@ -30,9 +50,12 @@ const createUser = async (username, password) => User.sync()
     User.create({ username, password });
   });
 
-const getUser = async (username, password) => User.find({ username, password });
+const getUser = (username) => {
+  if (User.findOne({ where: { username } }) == null) { throw (new Error()); } else { return User; }
+};
 
 module.exports = {
   createUser,
   getUser,
+  sequelize,
 };
