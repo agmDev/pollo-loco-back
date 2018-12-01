@@ -1,17 +1,14 @@
 const express = require('express');
+const WebSocket = require('ws');
 
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+
 
 const router = express.Router();
 const bodyParser = require('body-parser');
 const { subscriptionPost, loginPost } = require('./controler/requestHandler.js');
 
-
-const general = io.of('/general');
-
-const users = [];
 // const channelOne = io.of('/channelOne');
 // const channelTwo = io.of('/channelTwo');
 // const channelThree = io.of('/channelThree');
@@ -34,32 +31,56 @@ app.use('/', router);
 app.post('/subscription', subscriptionPost);
 app.post('/login', loginPost);
 
-general.on('connection', (socket) => {
-  socket
-    .join('/general', () => {
-      general.to('/general').emit('newUser', `${socket.handshake.query.poupoune} has been connected`);
-    })
-    .on('message', (data) => {
-      const {
-        type, name, message, author,
-      } = data;
-      if (type === 'ADD_USER') {
-        const index = users.length;
-        const user = {
-          name,
-          index,
-        };
-        users.push(user);
-        general.to('/general').emit('USERS_LIST', users);
+
+const wss = new WebSocket.Server({ port: 8989 });
+
+const users = [];
+
+const broadcast = (data, ws) => {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN && client !== ws) {
+      client.send(JSON.stringify(data));
+    }
+  });
+};
+
+wss.on('connection', (ws) => {
+  let index;
+  ws.on('message', (message) => {
+    const data = JSON.parse(message);
+    switch (data.type) {
+      case 'ADD_USER': {
+        index = users.length;
+        users.push({ name: data.name, id: index + 1 });
+        ws.send(JSON.stringify({
+          type: 'USERS_LIST',
+          users,
+        }));
+        broadcast({
+          type: 'USERS_LIST',
+          users,
+        }, ws);
+        break;
       }
-      const response = {
-        message,
-        author,
-      };
-      if (type === 'ADD_MESSAGE') {
-        general.to('/general').emit('ADD_MESSAGE', response);
-      }
-    });
+      case 'ADD_MESSAGE':
+        broadcast({
+          type: 'ADD_MESSAGE',
+          message: data.message,
+          author: data.author,
+        }, ws);
+        break;
+      default:
+        break;
+    }
+  });
+
+  ws.on('close', () => {
+    users.splice(index, 1);
+    broadcast({
+      type: 'USERS_LIST',
+      users,
+    }, ws);
+  });
 });
 
 server.listen(8888);

@@ -6,12 +6,8 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "jest --coverage",
     "ci": "jest --watchAll",
-<<<<<<< HEAD
-    "lint": "eslint controler model routes server.js test"
-=======
     "lint": "eslint .",
     "fix": "eslint . --fix"
->>>>>>> 08ab24bc481dd23e43d07a5c6afc3731c995d083
   },
   "author": "",
   "license": "ISC",
@@ -48,7 +44,8 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.2.0",
     "sqlite3": "^4.0.4",
-    "supertest": "^3.3.0"
+    "supertest": "^3.3.0",
+    "ws": "^6.1.2"
   },
   "jest": {
     "testEnvironment": "node"
