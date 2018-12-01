@@ -4,7 +4,10 @@ const Validate = require('./../../utils/validate.js');
 // console.log('type of Validate ', typeof Validate);
 console.log(`Type of validate ${typeof validate}`);
 const val = new Validate();
-const Sequelize = new Seq();
+const Sequelize = new Seq('pollo-loco', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'mysql',
+});
 const User = Sequelize.define('User', {
   username: {
     type: Sequelize.STRING,
