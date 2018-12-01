@@ -3,7 +3,7 @@ module.exports = {
     username: 'root',
     password: 'root',
     database: 'pollo_loco',
-    host: '172.20.0.3',
+    host: '172.22.0.2',
     dialect: 'mysql',
   },
 };
