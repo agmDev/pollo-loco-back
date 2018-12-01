@@ -4,7 +4,7 @@ services:
     # Storages
     # ==============================================
     db:
-        image: mariadb
+        image: mysql
         ports:
             -   3306::3306
         environment:
@@ -22,3 +22,6 @@ services:
             - "PMA_HOST=db"
             - "PMA_USER=root"
             - "PMA_PASSWORD=root"
+
+
+

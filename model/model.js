@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize');
 // const User = require('./../db/models/user.js');
 
-const sequelize = new Sequelize('pollo_loco', 'root', 'root', {
-  host: '172.20.0.3',
+const sequelize = new Sequelize('pollo_loco', 'root', 'password', {
+  host: '127.0.0.1',
   dialect: 'mysql',
+  dialectOptions: {
+    requestTimeout: 150000,
+  },
   operatorsAliases: false,
   port: 3306,
   pool: {
