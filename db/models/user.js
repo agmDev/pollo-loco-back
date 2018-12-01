@@ -10,14 +10,14 @@ const Sequelize = new Seq('pollo-loco', 'root', 'password', {
 });
 const User = Sequelize.define('User', {
   username: {
-    type: Sequelize.STRING,
+    type: Seq.STRING,
     allowNull: false,
     unique: true,
     trim: true,
     validate: { is: val.get('username') },
   },
   password: {
-    type: Sequelize.STRING,
+    type: Seq.STRING,
     allowNull: false,
     validate: { is: val.get('password') },
   },
