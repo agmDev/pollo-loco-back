@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const { createUser, getUser } = require('../db/models/user.js');
 
 const sequelize = new Sequelize('pollo_loco', 'root', 'root', {
-  host: '172.22.0.2',
+  host: '172.23.0.2',
   dialect: 'mysql',
   operatorsAliases: false,
   port: 3306,
