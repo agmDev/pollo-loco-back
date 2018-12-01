@@ -1,12 +1,14 @@
 const Seq = require('sequelize');
 const Validate = require('./../../utils/validate.js');
+const config = require('../../config/database');
 
 // console.log('type of Validate ', typeof Validate);
 console.log(`Type of validate ${typeof validate}`);
 const val = new Validate();
-const Sequelize = new Seq('pollo-loco', 'root', 'password', {
-  host: 'localhost',
-  dialect: 'mysql',
+const Sequelize = new Seq(config.mysql.database, config.mysql.username, config.mysql.password, {
+  host: config.mysql.host,
+  dialect: config.mysql.dialect,
+  port: config.mysql.port,
 });
 const User = Sequelize.define('User', {
   username: {
