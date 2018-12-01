@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-
 const Validate = require('./../../utils/validate.js');
 
 const User = Sequelize.define('User', {
