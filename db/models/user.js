@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const Validate = require('./../../utils/validate.js');
+// const Validate = require('../../utils/validate.js');
 
 // console.log('type of Validate ', typeof Validate);
 console.log(`Type of validate ${typeof validate}`);
@@ -9,12 +9,12 @@ const User = Sequelize.define('User', {
     allowNull: false,
     unique: true,
     trim: true,
-    validate: { is: Validate.get('username') },
+    // validate: { is: Validate.get('username') },
   },
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: { is: Validate.get('password') },
+    // validate: { is: Validate.get('password') },
   },
 });
 
