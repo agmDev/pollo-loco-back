@@ -3,11 +3,11 @@ const { createUser, getUser } = require('../model/model.js');
 const subscriptionPost = async (req, res) => {
   const {
     body: {
-      name, lastname, username, email, password,
+      username, password,
     },
   } = req;
   try {
-    await createUser(name, lastname, username, email, password);
+    await createUser(username, password);
     res.status(200).send('subscription success');
   } catch (err) {
     res.status(400).send('subscription failed');
