@@ -3,7 +3,6 @@ const Validate = require('./../../utils/validate.js');
 const config = require('../../config/database');
 
 // console.log('type of Validate ', typeof Validate);
-console.log(`Type of validate ${typeof validate}`);
 const val = new Validate();
 
 const sequelize = new Seq(
@@ -42,7 +41,9 @@ const createUser = async (username, password) => User.sync()
     User.create({ username, password });
   });
 
-const getUser = async (username, password) => User.find({ username, password });
+const getUser = (username) => {
+  if (User.findOne({ where: { username } }) == null) { throw (new Error()); } else { return User; }
+};
 
 module.exports = {
   createUser,
