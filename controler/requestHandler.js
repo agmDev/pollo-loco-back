@@ -28,6 +28,7 @@ sequelize
   });
 
 const subscriptionPost = async (req, res) => {
+  console.log(req.body);
   const {
     body: {
       username, password,
@@ -42,6 +43,7 @@ const subscriptionPost = async (req, res) => {
 };
 
 const loginPost = async (req, res) => {
+  console.log(req.body);
   const {
     body: {
       username, password,
