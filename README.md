@@ -18,9 +18,11 @@ And then clone project and install
 git clone ...
 npm install
 docker inspect pollo-loco-back_db_1
-
+~~~
 replace host with container ip in:
     -   /congig/database.js
+then migrate the DB
+~~~bash
 node_modules/.bin/sequelize db:migrate
 ~~~
 
