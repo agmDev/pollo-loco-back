@@ -21,7 +21,6 @@ docker inspect pollo-loco-back_db_1
 
 replace host with container ip in:
     -   /congig/database.js
-    -   /model/model.js
 node_modules/.bin/sequelize db:migrate
 ~~~
 
