@@ -2,7 +2,6 @@ const Seq = require('sequelize');
 const Validate = require('./../../utils/validate.js');
 const config = require('../../config/database');
 
-// console.log('type of Validate ', typeof Validate);
 const val = new Validate();
 
 const sequelize = new Seq(
@@ -41,8 +40,13 @@ const createUser = async (username, password) => User.sync()
     User.create({ username, password });
   });
 
-const getUser = (username) => {
-  if (User.findOne({ where: { username } }) == null) { throw (new Error()); } else { return User; }
+const getUser = async (username) => {
+  const me = await User.findOne({ where: { username } });
+  if (me == null) {
+    throw (new Error());
+  } else {
+    return me;
+  }
 };
 
 module.exports = {

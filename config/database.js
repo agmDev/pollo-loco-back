@@ -2,8 +2,8 @@ module.exports = {
   development: {
     username: 'root',
     database: 'pollo_loco',
-    host: '172.24.0.3',
+    host: '127.0.0.1',
     dialect: 'mysql',
-    password: 'root',
+    password: 'password',
   },
 };

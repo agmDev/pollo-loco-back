@@ -16,15 +16,14 @@ const subscriptionPost = async (req, res) => {
 };
 
 const loginPost = async (req, res) => {
-  console.log(req.body);
   const {
     body: {
       username, password,
     },
   } = req;
   try {
-    const response = await getUser(username, password);
-    res.status(200).send('login success', response);
+    await getUser(username, password);
+    res.status(200).send('login success');
   } catch (err) {
     res.status(401).send('login failed');
   }
